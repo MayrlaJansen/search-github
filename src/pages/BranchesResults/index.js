@@ -1,6 +1,8 @@
 import { makeStyles, Typography } from '@material-ui/core';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Header from '../../components/Header';
+import Loading from '../../components/Loading';
 import { useBranches } from '../../hooks/branchs.hook';
 
 const useStyles = makeStyles({
@@ -29,16 +31,28 @@ function BranchesResults(){
   const { searchValue, repoName } = useParams();
   const branches = useBranches(searchValue, repoName);
 
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+
+    return () => clearTimeout();
+  }, []);
+
   return(
     <>
       <Header title="GitHub (versão-busca)" subtitle="Projeto apresentado a JustForYou!" />
       <Typography className={classes.textStyle}>Branches</Typography>
+      {loading ? <Loading /> : (
+        <>
         {branches.length ? (
           <div className={classes.textItem}>
             {branches.map(( item, index) => (
               <ul>
                 <li>
-                  <a href={`${searchValue}/branches/${item.name}`} className={classes.itemStyle}>
+                  <a href={`/repositorios/${searchValue}/commits/${repoName}`} className={classes.itemStyle}>
                     {item.name}
                   </a>
                 </li>
@@ -46,6 +60,8 @@ function BranchesResults(){
             ))}
         </div>
       ): <p className={classes.textItem}>Não existe nenhuma branch!</p>}
+        </>
+      )}
     </>
   )
 }

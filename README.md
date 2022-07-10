@@ -9,7 +9,8 @@
   <li>Dado um repositório, listar todas as branches;</li>
   <li>Dado uma branch, listar todos os commits daquela branch;</li>
   <li>Conexão com ednpoints para listar repositórios, branches e commits;</li>
-  <li>Layout responsivo;</li>
+  <li>Layout responsivo com mobile first;</li>
+  <li>Obs: o clique na logo presente no header de todo o projeto, retorna para a Home;</li>
 </ul>
 
 ### Pré-requisitos

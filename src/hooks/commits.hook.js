@@ -8,6 +8,7 @@ export function useCommits(username, repoName) {
     api
       .get(`/repos/${username}/${repoName}/commits`)
       .then((response) => {
+        console.log(response)
         setListCommits(response.data)
       })
       .catch((err) => {
