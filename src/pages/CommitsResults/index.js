@@ -1,8 +1,7 @@
 import { makeStyles, Typography } from '@material-ui/core';
 import { useParams } from 'react-router-dom';
 import Header from '../../components/Header';
-import { useBranches } from '../../hooks/branchs.hook';
-
+import { useCommits } from '../../hooks/commits.hook';
 const useStyles = makeStyles({
   textStyle:{
     color: '#C45F77',
@@ -24,30 +23,28 @@ const useStyles = makeStyles({
   }
 })
 
-function BranchesResults(){
+function CommitsResults(){
   const classes = useStyles();
   const { searchValue, repoName } = useParams();
-  const branches = useBranches(searchValue, repoName);
+  const commits = useCommits(searchValue, repoName);
 
   return(
     <>
       <Header title="GitHub (versão-busca)" subtitle="Projeto apresentado a JustForYou!" />
-      <Typography className={classes.textStyle}>Branches</Typography>
-        {branches.length ? (
+      <Typography className={classes.textStyle}>Commits</Typography>
+        {commits.length ? (
           <div className={classes.textItem}>
-            {branches.map(( item, index) => (
+            {commits.map(( item, index) => (
               <ul>
-                <li>
-                  <a href={`${searchValue}/branches/${item.name}`} className={classes.itemStyle}>
-                    {item.name}
-                  </a>
+                <li className={classes.itemStyle}>
+                  {item.name}
                 </li>
               </ul>
             ))}
         </div>
-      ): <p className={classes.textItem}>Não existe nenhuma branch!</p>}
+      ): <p className={classes.textItem}>Não existe nenhum commit!</p>}
     </>
   )
 }
 
-export default BranchesResults;
+export default CommitsResults;
